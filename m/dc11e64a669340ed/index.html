@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>아침 시장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 레이아웃: 휴대폰 한 줄 세로 읽기. 위에서부터 요약 → 숫자 → 흐름 → 이야기 → 공부 */
+:root{
+  --paper:#F2F5F3; --card:#FFFFFF; --ink:#16231F; --muted:#5C6B66; --line:#D8E0DC;
+  --accent:#0E6656; --accent-soft:#DDEEEA; --up:#C8322B; --down:#2457B8; --flat:#6B7672;
+  --display:"Hahmlet","Nanum Myeongjo",Georgia,serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1715; --card:#16211E; --ink:#E6EEEA; --muted:#97A8A2; --line:#2A3834;
+  --accent:#5FC2AE; --accent-soft:#1D3530; --up:#F0706A; --down:#7EA6F2; --flat:#8E9C97; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1715; --card:#16211E; --ink:#E6EEEA; --muted:#97A8A2; --line:#2A3834;
+  --accent:#5FC2AE; --accent-soft:#1D3530; --up:#F0706A; --down:#7EA6F2; --flat:#8E9C97; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;-webkit-text-size-adjust:100%;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;font-weight:700}
+h1{font-size:1.65rem;line-height:1.35}
+h2{font-size:1.2rem;display:flex;align-items:baseline;gap:10px}
+h2 small{font-family:var(--body);font-size:.8rem;color:var(--muted);font-weight:400}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:14px}
+
+.top{display:flex;flex-direction:column;gap:14px}
+.three{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.three li{display:grid;grid-template-columns:1.6rem 1fr;gap:6px;align-items:start}
+.three li b{font-family:var(--mono);color:var(--accent);font-weight:500}
+.todo{background:var(--accent-soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.todo .eyebrow{color:var(--accent)}
+
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:560px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .name{font-size:.85rem;color:var(--muted)}
+.tile .val{font-family:var(--mono);font-size:1.15rem;font-variant-numeric:tabular-nums}
+.tile .chg{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums}
+.tile svg{width:100%;height:34px;display:block}
+.tile details{font-size:.8rem;color:var(--muted);line-height:1.5}
+.tile summary{cursor:pointer;color:var(--accent);list-style:none}
+.tile summary::-webkit-details-marker{display:none}
+.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+.legend{font-size:.8rem;color:var(--muted)}
+
+.chain{display:flex;flex-direction:column}
+.node{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.node .what{font-weight:600}
+.node .why{font-size:.9rem;color:var(--muted)}
+.arrow{align-self:flex-start;margin-left:22px;height:26px;width:2px;background:var(--accent);position:relative}
+.arrow::after{content:"";position:absolute;bottom:-1px;left:-5px;border:6px solid transparent;border-top-color:var(--accent);border-bottom:0}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 14px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.story{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+.story h3{margin:0;font-size:1.02rem;line-height:1.45}
+.story .plain{color:var(--ink)}
+.story .me{font-size:.92rem;background:var(--accent-soft);border-radius:8px;padding:8px 10px}
+.story .me b{color:var(--accent);font-weight:600}
+.story .src{font-size:.8rem;color:var(--muted)}
+.tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--accent)}
+
+.terms{display:grid;gap:10px}
+.term{display:grid;grid-template-columns:minmax(5.5rem,auto) 1fr;gap:12px;align-items:baseline}
+.term dt{font-weight:600}
+.term dd{margin:0;color:var(--muted);font-size:.92rem}
+
+.styles{display:flex;flex-direction:column;gap:12px}
+.who{display:grid;grid-template-columns:2.4rem 1fr;gap:12px;align-items:start}
+.who .av{width:2.4rem;height:2.4rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700}
+.who .nm{font-size:.82rem;color:var(--muted)}
+
+blockquote{margin:0;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;gap:10px}
+blockquote .q{font-family:var(--display);font-size:1.15rem;line-height:1.5}
+blockquote .by{font-size:.85rem;color:var(--muted)}
+
+.reads{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.reads li{display:flex;flex-direction:column}
+.reads span{font-size:.85rem;color:var(--muted)}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.days button{font-family:var(--mono);font-size:.8rem;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;padding:3px 8px;cursor:pointer}
+.days button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+footer{font-size:.78rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.node,.story{transition:opacity .2s}}
+</style>
+</head><body>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <span class="eyebrow" id="date"></span>
+    <h1 id="headline"></h1>
+    <ul class="three" id="three"></ul>
+    <div class="todo"><span class="eyebrow">초보 체크 · 오늘 내가 할 일</span><p id="todo"></p></div>
+  </header>
+
+  <section>
+    <h2>오늘 숫자 <small>하루 변화 · 최근 한 달</small></h2>
+    <div class="tiles" id="tiles"></div>
+    <p class="legend">한국식으로 <span class="up">오르면 빨강</span>, <span class="down">내리면 파랑</span>. 「뭐예요?」를 누르면 풀이가 나와요.</p>
+  </section>
+
+  <section>
+    <h2>오늘의 흐름 <small>무엇이 무엇을 움직였나</small></h2>
+    <div class="chain" id="chain"></div>
+  </section>
+
+  <section>
+    <h2>이야기</h2>
+    <div class="tabs" id="tabs" role="group" aria-label="주제 고르기"></div>
+    <div id="stories" style="display:flex;flex-direction:column;gap:14px"></div>
+  </section>
+
+  <section>
+    <h2>오늘 나온 어려운 말</h2>
+    <dl class="terms" id="terms"></dl>
+  </section>
+
+  <section>
+    <h2>투자 귀재 다섯 명이라면 <small>같은 시장, 다른 해석</small></h2>
+    <div class="styles" id="styles"></div>
+  </section>
+
+  <section>
+    <h2>오늘의 원칙</h2>
+    <blockquote id="principle"></blockquote>
+  </section>
+
+  <section>
+    <h2>더 읽고 싶다면 <small>안 읽어도 괜찮아요</small></h2>
+    <ul class="reads" id="reads"></ul>
+  </section>
+
+  <section>
+    <h2>지난 아침</h2>
+    <div class="days" id="days"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script id="brief-data" type="application/json">[{"headline": "한 주 만에 한국 증시가 크게 무너졌어요", "summary3": ["한국 증시가 한 주에 14.5% 빠졌어요", "AI에 빚내서 투자한 회사가 흔들려서예요", "지금은 사지 않고 지켜보는 날이에요"], "todo": "없어요. 30만원 가상 운용은 아직 시작 전이라 사고팔 일이 없어요. 크게 흔들린 날엔 서두르지 않는다는 것만 알아두면 돼요.", "chain": [{"what": "AI에 쓴 빚이 부담이라는 걱정이 커졌어요", "why": "AI 클라우드 회사 코어위브의 회사채 이자율이 15.1%까지 올랐어요(하나증권 주식전략). 아주 높은 편이에요."}, {"what": "AI·반도체 주식이 크게 빠졌어요", "why": "필라델피아 반도체지수가 8일 연속 내렸어요(한투증권)."}, {"what": "외국인이 한국 주식을 많이 팔았어요", "why": "한국은 반도체 비중이 커서 같이 크게 흔들려요. 지난주 외국인은 코스피를 13.3조원어치 순매도했어요(하나증권 은행 리포트)."}, {"what": "코스피가 한 주에 14.5% 떨어졌어요", "why": "한투증권은 52주 중 가장 큰 하락이고, 거래가 잠시 멈추는 서킷브레이커까지 나왔다고 해요."}, {"what": "이번 주 빅테크 실적이 단서가 돼요", "why": "21일 메타를 시작으로 구글·마이크로소프트가 AI에 얼마나 더 쓸지 밝혀요."}], "stories": [{"tag": "큰 그림", "title": "코스피가 한 주에 14.5% 빠졌어요", "plain": "한투증권은 지난주 코스피가 14.5% 내려 최근 52주 중 가장 크게 빠졌다고 봐요. 100만원이 85만원 정도가 된 크기예요. 시장 숫자로는 마지막 하루 +2.05% 올랐지만, 큰 하락에 비하면 작은 반등이에요. 한투증권은 당분간 오르내림이 크고 조심스러운 장이 이어질 걸로 봐요.", "me": "시작도 안 한 30만원 운용에서 이런 날은 서두르지 않아도 된다는 걸 확인하는 날이에요.", "source": "한투증권 투자전략 김대준", "link": "https://t.me/strategy_kis/14343"}, {"tag": "큰 그림", "title": "AI 회사의 '빚 걱정'이 불씨예요", "plain": "하나증권 주식전략은 코어위브의 2032년 만기 회사채 수익률이 15.1%까지 올라 부도 위험 수준이라고 짚어요. 반면 하나증권 해외주식팀은 AI 투자가 줄어드는 신호는 아직 없어서 우려가 과하다고 봐요. 외상으로 물건을 잔뜩 들여놓은 클리닉이 이자를 못 낼까 걱정하는 모습과 비슷해요.", "me": "AI가 안 된다는 얘기가 아니라 빚으로 크는 회사가 먼저 흔들린다는 점을 기억해둘 만해요.", "source": "하나증권 주식전략 / 해외주식분석", "link": "https://t.me/HANAStrategy/7749"}, {"tag": "큰 그림", "title": "기름값 100달러 근처, 바닷길도 불안해요", "plain": "유가(WTI)는 99.02달러로 하루 1.07% 올랐어요. 영국 해상기구에 따르면 호르무즈 해협 일대 배 공격이 한 주에 12건으로 3월 이후 가장 많았어요. 기름값이 오르면 물가와 금리 걱정도 같이 커져요.", "me": "미국으로 보내는 배송·물류비에 영향을 줄 수 있어서 눈여겨볼 만해요.", "source": "미국 주식 인사이더", "link": "https://t.me/insidertracking/66545"}, {"tag": "AI", "title": "AI 큰손은 돈이 마르고, 칩 회사는 돈이 쌓여요", "plain": "뱅크오브아메리카는 마이크로소프트·메타 등 5개 큰손의 앞으로 12개월 예상 남는 현금이 2024년 약 3,000억 달러에서 2026년 약 -1,000억 달러로 줄었다고 봐요. 같은 기간 엔비디아 등 칩 회사 3곳은 약 1,000억에서 4,800억 달러로 늘었어요. 쓰는 쪽은 지갑이 비고, 파는 쪽 지갑이 두둑해진 거예요.", "me": "이번 주 빅테크 실적에서 이 큰손들이 계속 쓸지가 AI 관련 흐름을 좌우해요.", "source": "미국 주식 인사이더(BofA 인용)", "link": "https://t.me/insidertracking/66551"}, {"tag": "AI", "title": "AI끼리 협상하는 시대, 협상 규칙을 고민해요", "plain": "파이낸셜타임스에 따르면 앤트로픽이 로펌들과 만나 AI 비서가 나 대신 거래할 때 어떻게 협상해야 하는지 논의하고 있어요. 9월 실험에서는 무자비하게 협상하라고 한 AI가 조금 더 좋은 결과를 얻었어요. 좋은 AI를 쓸 수 있는 쪽이 유리해질 수 있다는 지적도 있어요.", "me": "내 일(미국 클리닉 대상 K뷰티 영업)에서 AI가 메일과 일정 조율을 대신하는 일이 늘 텐데, 그 모습을 미리 보는 이야기예요.", "source": "에테르의 일본&미국 리서치(FT 인용)", "link": "https://t.me/aetherjapanresearch/25910"}, {"tag": "뷰티", "title": "화장품 업종은 이익 전망이 오히려 올라갔어요", "plain": "하나증권 주식전략은 국내 3분기 영업이익 전망을 한 달 전보다 올린 업종으로 화장품(+5.7%)을 꼽았어요. 이익 전망이 오른 종목 목록에는 화장품 제조사 코스맥스도 들어 있어요. 지수는 크게 빠졌지만 업종마다 사정은 달라요.", "me": "내가 파는 K뷰티와 가까운 업종이라 앞으로 지켜볼 후보 목록에 넣어둘 만해요.", "source": "하나증권 주식전략", "link": "https://t.me/HANAStrategy/7748"}], "terms": [{"term": "서킷브레이커", "plain": "주가가 너무 급하게 빠질 때 거래를 잠깐 멈추는 안전장치예요. 과열된 분위기를 식히는 용도예요."}, {"term": "순매도", "plain": "판 금액이 산 금액보다 많은 걸 말해요. 외국인 순매도 13.3조원은 그만큼 더 팔았다는 뜻이에요."}, {"term": "설비투자(CAPEX)", "plain": "공장이나 데이터센터를 짓고 장비를 사는 데 쓰는 돈이에요. 클리닉이 새 장비를 들이는 것과 같아요."}, {"term": "하이퍼스케일러", "plain": "구글·마이크로소프트·메타처럼 데이터센터를 엄청나게 많이 가진 초대형 IT 회사예요."}, {"term": "회사채 금리", "plain": "회사가 빚을 낼 때 내는 이자율이에요. 위험해 보일수록 높아지고, 15%는 아주 높은 편이에요."}], "styles": [{"who": "찰리 멍거", "style": "좋은 회사를 오래", "take": "빚으로 버티는 회사는 피하고, 내가 이해하는 좋은 회사만 보려 할 거예요. 오늘 같은 날은 서두르지 않고 지켜볼 회사 목록만 만들 것 같아요."}, {"who": "피터 린치", "style": "생활 속 발견", "take": "주변에서 실제로 늘어나는 서비스나 제품을 먼저 볼 거예요. 화장품과 AI 도구가 정말 쓰이고 있는지부터 확인하려 할 것 같아요."}, {"who": "레이 달리오", "style": "경기 흐름·분산", "take": "금리 5.1%, 유가 99달러가 함께 높은 구간이라 한쪽에 몰아두지 않으려 할 거예요. 흔들려도 버티도록 여러 곳에 나누는 쪽이에요."}, {"who": "스탠리 드러켄밀러", "style": "큰 흐름 올라타기", "take": "외국인 매도, 금리, 유가의 방향이 바뀌는지 볼 거예요. 확신이 없으면 쉬는 것도 하나의 선택이라고 볼 것 같아요."}, {"who": "하워드 막스", "style": "위험부터", "take": "빚이 많은 회사의 이자율이 뛰는 지금이 가장 조심할 때라고 볼 거예요. 얼마 벌까보다 얼마나 잃을 수 있나를 먼저 물을 것 같아요."}], "principle": {"quote": "Invert, always invert. (뒤집어서 생각하라, 항상 뒤집어라.)", "by": "찰리 멍거 · 『가난한 찰리의 연감』", "apply": "'어떻게 하면 벌까'가 아니라 '어떻게 하면 크게 잃을까'를 먼저 떠올려보라는 말이에요. 오늘 뉴스에서는 그 답이 '빚으로 한꺼번에 산 회사'였어요. 그래서 오늘은 뭔가 사기보다 어떤 회사가 위험한지 알아두는 날이에요."}, "reads": [{"title": "한투증권 10월 넷째 주 증시 전망", "link": "https://t.me/strategy_kis/14343", "why": "이번 주 어떤 일정이 증시를 움직일지 한눈에 볼 수 있어요."}, {"title": "하나 주식전략 주간 퀀트 총평(코어위브 편)", "link": "https://t.me/HANAStrategy/7749", "why": "AI 회사의 빚 걱정이 어디까지 번졌는지 알 수 있어요."}, {"title": "BofA: 하이퍼스케일러와 반도체 기업의 현금 흐름", "link": "https://t.me/insidertracking/66551", "why": "AI 돈이 누구 주머니로 흘러가는지 짧게 볼 수 있어요."}], "date": "2026-10-18", "n_sources": 215, "markets": [{"name": "코스피", "last": 5668.05, "dec": 2, "unit": "", "chg_pct": 2.049, "series": [6717.9702, 6715.4102, 6894.23, 7007.7202, 7017.9102, 7080.9199, 6889.7402, 6870.8101, 6838.04, 6971.3501, 7003.7402, 6941.3901, 6803.8999, 6625.9302, 6384.2402, 6035.3501, 6008.8101, 5554.2202, 5668.0498], "explain": "한국 대표 회사들 주가를 한데 모은 점수예요. 한국 주식시장 전체의 기분이라고 보면 돼요."}, {"name": "S&P 500", "last": 7659.44, "dec": 2, "unit": "", "chg_pct": -1.093, "series": [7637.7598, 7650.5, 7764.7002, 7764.6401, 7706.0298, 7704.1299, 7743.4102, 7683.6899, 7670.8398, 7651.54, 7666.4502, 7722.7202, 7773.9502, 7818.9302, 7801.77, 7765.3599, 7811.54, 7807.2402, 7805.4502, 7718.9399, 7744.0601, 7659.4399], "explain": "미국 대표 회사 500곳의 점수예요. 예전 메모에 적어 둔 VOO가 바로 이걸 그대로 따라가는 상품이에요."}, {"name": "나스닥", "last": 26140.03, "dec": 2, "unit": "", "chg_pct": -2.145, "series": [26418.3008, 26522.5391, 27122.0898, 27244.2793, 26936.0391, 26939.3691, 27068.7207, 26820.3809, 26797.5391, 26861.0605, 26871.5996, 27190.8594, 27477.3105, 27599.7891, 27538.6895, 27193.3398, 27366.1699, 27245.9004, 27204.3809, 26692.8691, 26713.0293, 26140.0293], "explain": "애플·엔비디아 같은 미국 기술 회사가 많은 점수예요. QQQ가 이걸 따라가요."}, {"name": "미국 10년 금리", "last": 5.1, "dec": 2, "unit": "%", "chg_pct": 0.177, "series": [5.006, 4.947, 4.998, 4.963, 4.968, 5.114, 5.162, 5.184, 5.24, 5.255, 5.293, 5.237, 5.277, 5.311, 5.269, 5.277, 5.231, 5.244, 5.24, 5.217, 5.19, 5.089, 5.098], "explain": "미국 정부가 10년 동안 돈을 빌릴 때 내는 이자예요. 세상 모든 돈의 '기준 가격'이라, 오르면 주식, 특히 성장주가 힘들어져요.", "chg_label": "0.01%p"}, {"name": "원·달러 환율", "last": 1329.6, "dec": 1, "unit": "원", "chg_pct": -0.846, "series": [1363.5699, 1376.6, 1379.53, 1384.86, 1373.6801, 1350.36, 1362.5, 1367.36, 1354.51, 1359.5601, 1350.5, 1356.84, 1360.59, 1342.5601, 1343.75, 1339.74, 1339.08, 1342.99, 1340.84, 1334.13, 1340.3101, 1339.35, 1340.95, 1329.6], "explain": "1달러를 사는 데 드는 원화예요. 오르면 미국 주식을 살 때 비싸지고, 미국에 파는 회사(내 회사 같은)는 원화로 더 많이 남아요."}, {"name": "유가 (WTI) ($)", "last": 99.02, "dec": 2, "unit": "", "chg_pct": 1.072, "series": [100.3, 95.78, 94.59, 92.16, 94.61, 92.41, 92.6, 89.38, 90.42, 92.87, 91.11, 89.43, 89.44, 88.28, 91.49, 91.85, 93.74, 94.14, 95.09, 97.97, 99.02], "explain": "미국 기름 한 통(배럴) 가격이에요. 오르면 운송비·물가가 같이 올라 금리 인상 걱정이 커져요."}, {"name": "금 ($)", "last": 4181.0, "dec": 0, "unit": "", "chg_pct": 0.264, "series": [4424.8999, 4383.8999, 4376.3999, 4318.3999, 4298.0, 4321.2002, 4168.3999, 4179.7002, 4186.7002, 4202.2998, 4162.2998, 4156.7998, 4187.1001, 4140.7002, 4157.0, 4216.2998, 4190.6001, 4177.2998, 4107.8999, 4170.1001, 4181.1001], "explain": "불안할 때 사람들이 피난 가는 자산이에요. 금이 오르면 '시장이 걱정하고 있다'는 신호인 경우가 많아요."}]}]</script>
+<script>
+(function(){
+  var ALL = JSON.parse(document.getElementById("brief-data").textContent || "[]");
+  if (!Array.isArray(ALL) || !ALL.length) return;
+  var cur = 0, tab = "전체";
+  function el(t, cls, txt){ var e=document.createElement(t); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+  function cls(v){ return v>0.0001?"up":(v<-0.0001?"down":"flat"); }
+  function fmt(v, d){ return Number(v).toLocaleString("ko-KR",{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function spark(series, c){
+    var w=160,h=34,p=3, mn=Math.min.apply(null,series), mx=Math.max.apply(null,series), r=(mx-mn)||1;
+    var pts=series.map(function(v,i){return [p+i*(w-2*p)/(series.length-1), h-p-(v-mn)/r*(h-2*p)];});
+    var d=pts.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join(" ");
+    var last=pts[pts.length-1];
+    var col="var(--"+c+")";
+    return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-hidden="true">'+
+      '<path d="'+d+' L'+last[0].toFixed(1)+' '+h+' L'+p+' '+h+' Z" fill="'+col+'" fill-opacity=".12"/>'+
+      '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="1.6" vector-effect="non-scaling-stroke"/>'+
+      '<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="2.6" fill="'+col+'"/></svg>';
+  }
+  function render(){
+    var B = ALL[cur];
+    document.getElementById("date").textContent = B.date + " 아침 · 원천 글 " + (B.n_sources||0) + "개를 읽고 정리";
+    document.getElementById("headline").textContent = B.headline;
+    var three=document.getElementById("three"); three.innerHTML="";
+    (B.summary3||[]).forEach(function(s,i){ var li=el("li"); li.appendChild(el("b",null,String(i+1))); li.appendChild(el("span",null,s)); three.appendChild(li); });
+    document.getElementById("todo").textContent = B.todo || "없어요. 오늘은 읽기만 해도 충분해요.";
+
+    var tiles=document.getElementById("tiles"); tiles.innerHTML="";
+    (B.markets||[]).forEach(function(m){
+      var t=el("div","tile"); var c=cls(m.chg_pct);
+      t.appendChild(el("span","name",m.name));
+      t.appendChild(el("span","val",fmt(m.last,m.dec)+(m.unit||"")));
+      var sign=m.chg_pct>0?"▲ ":(m.chg_pct<0?"▼ ":"");
+      t.appendChild(el("span","chg "+c, sign+(m.chg_label||fmt(Math.abs(m.chg_pct),2)+"%")));
+      var s=el("div"); s.innerHTML=spark(m.series,c); t.appendChild(s);
+      var d=el("details"); d.appendChild(el("summary",null,"뭐예요?")); d.appendChild(el("p",null,m.explain)); t.appendChild(d);
+      tiles.appendChild(t);
+    });
+
+    var chain=document.getElementById("chain"); chain.innerHTML="";
+    (B.chain||[]).forEach(function(n,i){
+      if(i) chain.appendChild(el("div","arrow"));
+      var x=el("div","node"); x.appendChild(el("span","what",n.what)); if(n.why) x.appendChild(el("span","why",n.why)); chain.appendChild(x);
+    });
+
+    var tags=["전체"]; (B.stories||[]).forEach(function(s){ if(tags.indexOf(s.tag)<0) tags.push(s.tag); });
+    if(tags.indexOf(tab)<0) tab="전체";
+    var tb=document.getElementById("tabs"); tb.innerHTML="";
+    tags.forEach(function(g){ var b=el("button",null,g); b.type="button"; b.setAttribute("aria-pressed",String(g===tab)); b.onclick=function(){tab=g;render();}; tb.appendChild(b); });
+    var st=document.getElementById("stories"); st.innerHTML="";
+    (B.stories||[]).filter(function(s){return tab==="전체"||s.tag===tab;}).forEach(function(s){
+      var a=el("article","story");
+      a.appendChild(el("span","tag",s.tag));
+      a.appendChild(el("h3",null,s.title));
+      a.appendChild(el("p","plain",s.plain));
+      if(s.me){ var m=el("p","me"); m.appendChild(el("b",null,"나한테는 ")); m.appendChild(document.createTextNode(s.me)); a.appendChild(m); }
+      var src=el("p","src", "출처: "+(s.source||""));
+      if(s.link){ src.appendChild(document.createTextNode(" · ")); var l=el("a",null,"원문"); l.href=s.link; l.target="_blank"; l.rel="noopener"; src.appendChild(l); }
+      a.appendChild(src); st.appendChild(a);
+    });
+
+    var tm=document.getElementById("terms"); tm.innerHTML="";
+    (B.terms||[]).forEach(function(t){ var d=el("div","term"); d.appendChild(el("dt",null,t.term)); d.appendChild(el("dd",null,t.plain)); tm.appendChild(d); });
+
+    var sy=document.getElementById("styles"); sy.innerHTML="";
+    (B.styles||[]).forEach(function(s){
+      var r=el("div","who"); r.appendChild(el("span","av",s.who.slice(0,1)));
+      var b=el("div"); b.appendChild(el("div","nm",s.who+" · "+(s.style||""))); b.appendChild(el("p",null,s.take)); r.appendChild(b); sy.appendChild(r);
+    });
+
+    var pr=document.getElementById("principle"); pr.innerHTML="";
+    if(B.principle){ pr.appendChild(el("p","q",B.principle.quote)); pr.appendChild(el("p","by",B.principle.by)); pr.appendChild(el("p",null,B.principle.apply)); }
+
+    var rd=document.getElementById("reads"); rd.innerHTML="";
+    (B.reads||[]).forEach(function(r){ var li=el("li"); var a=el("a",null,r.title); a.href=r.link; a.target="_blank"; a.rel="noopener"; li.appendChild(a); if(r.why) li.appendChild(el("span",null,r.why)); rd.appendChild(li); });
+
+    var dy=document.getElementById("days"); dy.innerHTML="";
+    ALL.forEach(function(x,i){ var b=el("button",null,x.date.slice(5)); b.type="button"; b.setAttribute("aria-pressed",String(i===cur)); b.onclick=function(){cur=i;tab="전체";render();window.scrollTo(0,0);}; dy.appendChild(b); });
+    document.getElementById("foot").textContent = "숫자: Yahoo Finance 종가 기준. 글: 구독 중인 텔레그램 리서치 채널. 투자 추천이 아니라 공부용 정리예요.";
+  }
+  render();
+})();
+</script>
+</body></html>
