@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>가상 운용</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 레이아웃: 휴대폰 한 줄 세로 읽기. 위에서부터 요약 → 숫자 → 흐름 → 이야기 → 공부 */
+:root{
+  --paper:#F2F5F3; --card:#FFFFFF; --ink:#16231F; --muted:#5C6B66; --line:#D8E0DC;
+  --accent:#0E6656; --accent-soft:#DDEEEA; --up:#C8322B; --down:#2457B8; --flat:#6B7672;
+  --display:"Hahmlet","Nanum Myeongjo",Georgia,serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1715; --card:#16211E; --ink:#E6EEEA; --muted:#97A8A2; --line:#2A3834;
+  --accent:#5FC2AE; --accent-soft:#1D3530; --up:#F0706A; --down:#7EA6F2; --flat:#8E9C97; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1715; --card:#16211E; --ink:#E6EEEA; --muted:#97A8A2; --line:#2A3834;
+  --accent:#5FC2AE; --accent-soft:#1D3530; --up:#F0706A; --down:#7EA6F2; --flat:#8E9C97; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;-webkit-text-size-adjust:100%;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+h1,h2{font-family:var(--display);margin:0;font-weight:700} h1{font-size:1.6rem;line-height:1.35} h2{font-size:1.15rem}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.muted{color:var(--muted);font-size:.9rem} .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)}
+.rank{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.row .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+svg{width:100%;height:auto;display:block}
+details{border-top:1px solid var(--line);padding-top:10px} summary{cursor:pointer;font-weight:600}
+ul{margin:4px 0;padding-left:20px} li{margin:2px 0}
+.tag{font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:12px}
+</style></head><body><div class="wrap" id="app"></div>
+<script>
+const D = {"start": "2026-10-22", "seed": 60000, "history": [{"date": "2026-10-22", "v": {"buffett": 60000, "lynch": 60000, "dalio": 60000, "druck": 60000, "bogle": 59940}, "fx": 1323.02}], "reviews": [{"temperature": "(점검 실패: Claude JSON 실패)", "exposure": "", "warnings": [], "vetoes": [], "date": "2026-10-22"}], "agents": {"buffett": {"name": "멍거·버핏", "cash": 60000, "pos": [], "trades": [], "notes": [{"date": "2026-10-22", "view": "이번 실행에는 운용 스타일 지시문이 전달되지 않았어요(paper.py의 --allowedTools가 지시문을 삼킴). 스타일 없이 판단하면 실험 의미가 없어서 판단을 보류해요.", "hypotheses": [], "orders": [], "note": "설정 오류로 이번 주는 쉬어요. 현금 60,000원 그대로예요."}]}, "lynch": {"name": "피터 린치", "cash": 60000, "pos": [], "trades": [], "notes": [{"date": "2026-10-22", "view": "(판단 실패: Claude JSON 실패)", "hypotheses": [], "orders": [], "note": "이번 주 쉼"}]}, "dalio": {"name": "레이 달리오", "cash": 60000, "pos": [], "trades": [], "notes": [{"date": "2026-10-22", "view": "지시문(어느 에이전트인지)이 전달되지 않아 스타일에 맞춘 판단을 할 수 없어요. 브리프상 AI 실적은 안도를 줬지만 미국 10년 금리가 5.15%로 높아 서두를 이유는 없어요.", "hypotheses": [], "orders": [], "note": "설정 오류로 이번 주는 쉬어요(현금 60,000원 그대로). paper.py의 claude 호출을 고친 뒤 다시 결정해요."}]}, "druck": {"name": "드러켄밀러", "cash": 60000, "pos": [], "trades": [], "notes": [{"date": "2026-10-22", "view": "이번 실행에는 내 투자 스타일 지시문이 오지 않아, 내가 버핏인지 린치인지 달리오인지 드러켄밀러인지 알 수 없었다. 스타일 없이 사고팔면 이 실험(스타일끼리 비교) 자체가 망가지므로 판단을 보류한다.", "hypotheses": [{"claim": "paper.py에서 claude를 부르는 방식 때문에 스타일 지시문이 빠졌다", "check": "paper.py 108번째 줄에서 지시문을 --allowedTools 앞으로 옮긴 뒤 다시 돌려, 답에 스타일이 반영되는지 본다", "kill": "옮긴 뒤에도 지시문이 안 오면 다른 원인을 찾는다"}], "orders": [], "note": "이번 주는 쉼: 내 스타일 설명이 안 와서 현금 60,000원을 그대로 둔다(설정 문제 확인 필요)."}]}, "bogle": {"name": "보글 (대조군)", "cash": 0, "pos": [{"sym": "QQQ", "sh": 0.018760668097574783, "v": 18000, "ret": -0.1}, {"sym": "VOO", "sh": 0.019142892425091786, "v": 18000, "ret": -0.1}, {"sym": "SCHD", "sh": 0.2616894884470328, "v": 12000, "ret": -0.1}, {"sym": "GLD", "sh": 0.011967486039812847, "v": 6000, "ret": -0.1}, {"sym": "IEF", "sh": 0.049759208156068685, "v": 5940, "ret": -0.1}], "trades": [{"date": "2026-10-22", "side": "buy", "sym": "QQQ", "sh": 0.018761, "krw": 18000, "price": 725.2, "cur": "USD", "reason": "정해 둔 비중 그대로 사서 들고 있기"}, {"date": "2026-10-22", "side": "buy", "sym": "VOO", "sh": 0.019143, "krw": 18000, "price": 710.72, "cur": "USD", "reason": "정해 둔 비중 그대로 사서 들고 있기"}, {"date": "2026-10-22", "side": "buy", "sym": "SCHD", "sh": 0.261689, "krw": 12000, "price": 34.66, "cur": "USD", "reason": "정해 둔 비중 그대로 사서 들고 있기"}, {"date": "2026-10-22", "side": "buy", "sym": "GLD", "sh": 0.011967, "krw": 6000, "price": 378.95, "cur": "USD", "reason": "정해 둔 비중 그대로 사서 들고 있기"}, {"date": "2026-10-22", "side": "buy", "sym": "IEF", "sh": 0.049759, "krw": 5940, "price": 90.23, "cur": "USD", "reason": "정해 둔 비중 그대로 사서 들고 있기"}], "notes": []}}};
+const COL = {buffett:"#0E6656",lynch:"#C8322B",dalio:"#B7791F",druck:"#6B46C1",bogle:"#6B7672"};
+const fmt = n => Math.round(n).toLocaleString("ko-KR");
+const pct = v => (v>=0?"+":"")+v.toFixed(2)+"%";
+const cls = v => v>0?"up":v<0?"down":"";
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const last = D.history[D.history.length-1] || {v:{}};
+const ids = Object.keys(D.agents).sort((a,b)=>(last.v[b]||0)-(last.v[a]||0));
+let h = `<header><div class="eyebrow">가상 운용 · ${D.start} 시작 · 에이전트당 ${fmt(D.seed)}원</div>
+<h1>누가 잘 굴리고 있나</h1><p class="muted">실제 돈이 아니에요. 실제 시세로 우리 장부에서만 사고팔아요. 성적은 대조군(보글: 그냥 지수 들고 있기)과 비교해서만 봐요. 몇 주 성적으로는 아무것도 판단할 수 없어요.</p></header>`;
+h += `<section class="card"><h2>순위</h2><div class="rank">` + ids.map(k=>{const v=last.v[k]||D.seed, r=(v/D.seed-1)*100;
+  return `<div class="row"><span><span class="sw" style="background:${COL[k]}"></span>${esc(D.agents[k].name)}</span><span class="num">${fmt(v)}원 <b class="${cls(r)}">${pct(r)}</b></span></div>`}).join("") + `</div>`;
+if (D.history.length>1){ const W=600,H=200,P=8; const all=D.history.flatMap(x=>Object.values(x.v)); const lo=Math.min(...all,D.seed)*0.995, hi=Math.max(...all,D.seed)*1.005;
+  const X=i=>P+i*(W-2*P)/(D.history.length-1), Y=v=>H-P-(v-lo)/(hi-lo)*(H-2*P);
+  h += `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="평가액 추이"><line x1="0" x2="${W}" y1="${Y(D.seed)}" y2="${Y(D.seed)}" stroke="var(--line)" stroke-dasharray="4 4"/>` +
+   ids.map(k=>`<polyline fill="none" stroke="${COL[k]}" stroke-width="2" points="${D.history.map((x,i)=>X(i)+","+Y(x.v[k]||D.seed)).join(" ")}"/>`).join("") + `</svg><div class="muted">점선 = 시작 금액</div>`;}
+h += `</section>`;
+const rv = D.reviews[D.reviews.length-1];
+if (rv) h += `<section class="card"><div class="eyebrow">관리자 · 하워드 막스 · ${rv.date}</div><h2>${esc(rv.temperature)}</h2><p>${esc(rv.exposure)}</p>` +
+  (rv.warnings?.length?`<ul>${rv.warnings.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:"") +
+  (rv.vetoes?.length?`<p class="muted">막은 주문: ${rv.vetoes.map(v=>esc(D.agents[v.agent]?.name+" "+v.sym+" — "+v.reason)).join(" / ")}</p>`:"") + `</section>`;
+for (const k of ids){ const a=D.agents[k], n=a.notes[a.notes.length-1];
+  h += `<section class="card"><div class="row"><h2><span class="sw" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${COL[k]};margin-right:8px"></span>${esc(a.name)}</h2><span class="num muted">현금 ${fmt(a.cash)}원</span></div>`;
+  if (n) h += `<p><b>${esc(n.note)}</b></p><p class="muted">${esc(n.view)}</p>`;
+  h += a.pos.length?`<div>`+a.pos.map(p=>`<div class="row"><span>${esc(p.sym)}</span><span class="num">${fmt(p.v)}원 <span class="${cls(p.ret)}">${pct(p.ret)}</span></span></div>`).join("")+`</div>`:`<p class="muted">아직 산 것 없음</p>`;
+  if (n?.hypotheses?.length) h += `<details><summary>가설과 판별 기준</summary><ul>${n.hypotheses.map(x=>`<li><b>${esc(x.claim)}</b><br><span class="muted">확인: ${esc(x.check)} · 접을 때: ${esc(x.kill)}</span></li>`).join("")}</ul></details>`;
+  if (a.trades.length) h += `<details><summary>매매 기록 (${a.trades.length})</summary><ul>${a.trades.slice().reverse().map(t=>`<li><span class="tag">${t.date}</span> ${t.side==="buy"?"매수":"매도"} ${esc(t.sym)} ${fmt(t.krw)}원 — ${esc(t.reason)}</li>`).join("")}</ul></details>`;
+  h += `</section>`; }
+document.getElementById("app").innerHTML = h;
+</script></body></html>
