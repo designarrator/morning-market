@@ -1,0 +1,76 @@
+<!doctype html><html lang=ko><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>주문 근거</title>
+<link rel=stylesheet href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"><style>
+:root{--bg:#fff;--card:#f6f7f9;--line:#e5e8eb;--fg:#191f28;--sub:#4e5968;--weak:#8b95a1;--pri:#3182f6;--pri-s:#e8f3ff;--up:#f04452;--down:#3182f6;--ok:#03b26c;--ok-s:#e5f8ef;--bad:#f04452;--bad-s:#fdecee;--warn-s:#fff6e5;--warn:#c77800}
+@media (prefers-color-scheme:dark){:root{--bg:#101013;--card:#1c1c21;--line:#2c2c33;--fg:#ececf0;--sub:#b0b8c1;--weak:#7e8794;--pri:#4b9bff;--pri-s:#1b2a3f;--up:#ff6b78;--down:#5aa2ff;--ok:#2fd18c;--ok-s:#163326;--bad:#ff6b78;--bad-s:#3a1d22;--warn-s:#33280f;--warn:#f2b441}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;word-break:keep-all;letter-spacing:-0.01em}
+main{max-width:480px;margin:0 auto;padding:24px 20px 80px}
+h1{font-size:24px;line-height:34px;margin:0;letter-spacing:-0.02em}
+h2{font-size:20px;line-height:30px;margin:2px 0 6px;letter-spacing:-0.02em}h2 .sub{font-size:15px;color:var(--sub);font-weight:600}
+h3{font-size:17px;margin:28px 0 10px;letter-spacing:-0.02em}h4{font-size:15px;margin:20px 0 8px;color:var(--sub)}
+p{margin:6px 0}.cap{font-size:13px;color:var(--weak)}.note{font-size:13px;color:var(--sub)}.body{color:var(--sub)}
+.num{font-variant-numeric:tabular-nums}
+.lead{font-size:17px;line-height:27px;font-weight:600}.basis{font-size:13px;color:var(--weak);background:var(--bg);border-radius:12px;padding:8px 12px}
+.card{background:var(--card);border-radius:20px;padding:20px;margin:16px 0}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin:16px -20px 0;padding-left:20px;scrollbar-width:none}
+.nav a{flex:none;text-decoration:none;color:var(--fg);background:var(--card);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600}
+.nav a:active{transform:scale(.97)}
+.sumbar{display:flex;height:12px;border-radius:999px;overflow:hidden;margin:12px 0 6px;background:var(--line)}
+.sumbar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--sub)}.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;background:var(--c)}
+.temp{background:var(--warn-s);border-radius:20px;padding:16px 20px;margin:16px 0}
+.chgrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chg{background:var(--bg);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column}
+.chg b{font-size:17px}.up b{color:var(--up)}.down b{color:var(--down)}
+.range{margin:14px 0 4px}.track{position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--line),var(--line))}
+.track .dot{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--pri);border:3px solid var(--bg);transform:translate(-50%,-50%);box-shadow:0 0 0 1px var(--pri)}
+.track .mid{position:absolute;top:-4px;width:2px;height:16px;background:var(--weak);transform:translateX(-50%)}
+.rlab{display:flex;justify-content:space-between;font-size:12px;color:var(--weak);margin-top:6px}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+.tile{background:var(--bg);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column}
+.tile b{font-size:17px}.tile.up b{color:var(--up)}.tile.down b{color:var(--down)}
+.bars{margin:8px 0}.bar{display:grid;grid-template-columns:72px 1fr 64px;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+.bl{color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bt{height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.bt i{display:block;height:100%;background:var(--weak);border-radius:999px}.bar.hl .bt i{background:var(--pri)}.bv{text-align:right;color:var(--sub)}
+.meter{margin:10px 0}.mtrack{height:10px;background:var(--line);border-radius:999px;overflow:hidden}.mtrack i{display:block;height:100%;background:var(--pri);border-radius:999px}
+.hyp{background:var(--bg);border-radius:16px;padding:14px 16px;margin:10px 0}
+.hhead{display:flex;justify-content:space-between;align-items:center}.claim{font-weight:600;font-size:15px}
+.two{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}.two>div{border-radius:12px;padding:10px 12px}
+.two>div:first-child{background:var(--ok-s)}.two>div:last-child{background:var(--bad-s)}.two p{font-size:13px;margin:2px 0 0}
+details{font-size:13px;color:var(--sub);margin-top:6px}summary{cursor:pointer;color:var(--pri);font-weight:600}
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 8px;background:var(--line);color:var(--sub)}
+.badge.ok{background:var(--ok-s);color:var(--ok)}.badge.bad{background:var(--bad-s);color:var(--bad)}.badge.warn{background:var(--warn-s);color:var(--warn)}
+.verify{margin:8px 0}
+.stop{background:var(--bad-s);border-radius:16px;padding:12px 16px;margin:16px 0}.stop b{color:var(--bad)}.stop p{font-size:13px}
+.warn{background:var(--warn-s);border-radius:16px;padding:12px 16px;margin:16px 0}.warn ul{margin:6px 0 0;padding-left:18px;font-size:13px}
+.ev{margin:4px 0;padding-left:18px;font-size:13px;color:var(--sub)}
+.glance .tile b{font-size:17px}details.view{margin:20px 0 8px;font-size:15px}
+.glossary{font-size:13px;color:var(--sub)}.glossary b{color:var(--fg)}
+</style></head>
+<body><main>
+<p class=cap>주문 근거</p><h1>11/02 주간 결정</h1>
+<p class=body>1건 · 매수 15,000원. 종목마다 왜 사는지, 숫자, 틀렸을 때 할 일을 모았어요.</p>
+<div class=sumbar><i style="width:100.0%;background:#3182f6"></i></div><div class=legend><span style="--c:#3182f6">드러켄밀러 1.5만</span></div>
+<div class=temp><b>막스가 본 시장 온도</b><p class=note>미지근하지만 살짝 식는 중이에요. 공포지수(VIX 17.2)는 아직 평온하지만, 신용 스프레드가 한 달 새 3.08%p에서 3.26%p로 벌어졌고 물가도 3.4%에서 3.7%로 다시 올랐어요. 시장 전체는 싸지 않은데 방어주(SCHD 1년 +33.8%, 52주 최고)까지 비싸졌어요. 겁낼 때는 아니고, 조심할 때예요.</p></div>
+<nav class=nav><a href="#o0">SCHD</a></nav>
+<section class=card id=o0>
+<p class=cap>드러켄밀러</p>
+<h2>SCHD <span class=sub>매수 15,000원</span></h2>
+<p class=lead>배당을 꾸준히 주는 튼튼한 미국 회사 100여 곳을 담은 ETF예요. 1개월 +9.6%로 52주 최고가(위치 100%)를 찍고 있고, 1년 변동성(얼마나 출렁이는지)은 11.5%로 QQQ(20.3%)보다 훨씬 작아요. 돈이 방어적인 회사로 옮겨 가는 흐름에 올라탑니다.</p>
+<div class="tiles glance"><div class="tile "><span class=cap>1년 중 지금 값</span><b class=num>비싼 자리</b><span class=cap>범위의 100% 지점</span></div><div class="tile "><span class=cap>1년 수수료</span><b class=num>0.06%</b><span class=cap>ETF 보수</span></div><div class="tile "><span class=cap>에이전트 확신</span><b class=num>60%</b><span class=cap>10번 중 6번쯤은 맞을 거라고 봐요.</span></div><div class="tile "><span class=cap>흔들림</span><b class=num>덜 흔들리는 편</b><span class=cap>1년 변동성 12%</span></div></div>
+<div class=verify><span class="badge ok">숫자 검증 통과</span><span class=cap> Yahoo · Nasdaq 대조 · 기준 2026-11-02</span></div>
+<div class=stop style="border-color:var(--up,#e5484d)"><b>익절선 +8%</b><p>산 값보다 8% 오르면 50% 팔아 번 돈을 확정해요. 나머지는 더 오를 몫으로 들고 가요. 지금 값 $35.78 기준이면 $38.64 위</p></div><div class=stop><b>손절선 -6%</b><p>산 값보다 6% 떨어지면 이유를 따지지 않고 자동으로 팔아요. 지금 값 $35.78 기준이면 $33.63 아래</p></div>
+<div class=warn><b>막스(위험 관리)의 한마디</b><ul><li>드러켄밀러의 SCHD 주문 근거 중 1개월 +9.6%, 52주 위치 100%, 변동성 11.5%는 팩트 시트와 같아요. 다만 비교 대상으로 든 QQQ 변동성 20.3%는 팩트 시트에 없는 숫자라 확인이 필요해요. 주문의 핵심 근거는 아니어서 거부하지는 않아요.</li><li>버핏 BRK-B와 드러켄밀러 BRK-B·SCHD가 같은 &#x27;가치·방어&#x27; 쪽에 쏠려 있어요. 이 흐름이 뒤집히면(예: 기술주 반등) 두 운용이 함께 뒤처질 수 있어요.</li></ul></div>
+<h3>숫자로 보면</h3><h4>값이 어떻게 움직였나</h4><div class="chgrow"><div class="chg up"><span class=cap>1개월</span><b class=num>+9.6%</b></div><div class="chg up"><span class=cap>3개월</span><b class=num>+6.6%</b></div><div class="chg up"><span class=cap>1년</span><b class=num>+33.8%</b></div></div><div class=range><div class=track><i class=dot style="left:100.0%"></i></div><div class=rlab><span>1년 최저 $26.44</span><span>최고 $35.78</span></div><p class=note>지금 $35.78 · 1년 중 <b>가장 비싼 자리</b> 근처예요. 오름세가 강하다는 뜻이기도 해요.</p></div><h4>얼마나 흔들리나</h4><div class=tiles><div class="tile "><span class=cap>1년 흔들림(변동성)</span><b class=num>11.5%</b><span class=cap>덜 흔들리는 편</span></div><div class="tile down"><span class=cap>가장 크게 빠졌을 때</span><b class=num>-7.6%</b><span class=cap>1년 최대 낙폭</span></div></div><h4>안에 뭐가 들었나</h4><div class=bars><div class="bar"><span class=bl>TXN</span><div class=bt><i style="width:100%"></i></div><span class="bv num">4.7%</span></div><div class="bar"><span class=bl>QCOM</span><div class=bt><i style="width:98%"></i></div><span class="bv num">4.6%</span></div><div class="bar"><span class=bl>PG</span><div class=bt><i style="width:91%"></i></div><span class="bv num">4.2%</span></div><div class="bar"><span class=bl>MRK</span><div class=bt><i style="width:89%"></i></div><span class="bv num">4.1%</span></div><div class="bar"><span class=bl>KO</span><div class=bt><i style="width:89%"></i></div><span class="bv num">4.1%</span></div><div class="bar"><span class=bl>CVX</span><div class=bt><i style="width:87%"></i></div><span class="bv num">4.1%</span></div></div><p class=note>분류: Large Value · 상위 10개가 42%</p><p class=cap>업종 비중</p><div class=bars><div class="bar"><span class=bl>consumer defensive</span><div class=bt><i style="width:100%"></i></div><span class="bv num">20%</span></div><div class="bar"><span class=bl>healthcare</span><div class=bt><i style="width:96%"></i></div><span class="bv num">19%</span></div><div class="bar"><span class=bl>technology</span><div class=bt><i style="width:80%"></i></div><span class="bv num">16%</span></div><div class="bar"><span class=bl>energy</span><div class=bt><i style="width:76%"></i></div><span class="bv num">15%</span></div></div><div class=tiles><div class="tile "><span class=cap>1년 수수료(보수)</span><b class=num>0.06%</b></div><div class="tile "><span class=cap>시장과 같이 움직이는 정도(베타)</span><b class=num>0.68</b><span class=cap>1이면 시장과 같아요</span></div><div class="tile "><span class=cap>이익 대비 몸값(PER)</span><b class=num>18.2배</b></div></div>
+<h3>걸고 있는 가설</h3><div class=hyp><div class=hhead><span class=cap>가설 1102-7</span></div><p class=claim>AI 빚 걱정과 신용시장 긴장이 이어지는 동안, 돈은 배당을 꾸준히 주는 튼튼한 회사 묶음(SCHD)으로 계속 옮겨 간다.</p><div class="meter "><div class=mtrack><i style="width:60%"></i></div><div class=rlab><span>확신 60%</span><span>10번 중 6번쯤은 맞을 거라고 봐요.</span></div></div><div class=two><div><span class=cap>맞으면 이렇게 보여요</span><p>11/20까지 봅니다. SCHD가 산 값 위에 있고 QQQ보다 더 잘하며, 하이일드 스프레드가 3.0%p 위면 맞아요. 스프레드가 3.0%p 아래로 내려가고 나스닥이 26,702 위에서 마감하면 틀려요(돈이 다시 기술주로 가는 것).</p></div><div><span class=cap>틀리면 이렇게 해요</span><p>산 값보다 6% 떨어지면 전부 팝니다. 위 &#x27;틀림&#x27; 조건이 모두 나오면 SCHD를 팔고, 가설 1023-6의 규칙대로 QQQ를 검토합니다.</p></div></div></div>
+<details class=view><summary>이 에이전트가 지금 시장을 보는 눈</summary><p class=body>금리는 조금 내려왔지만(10년 4.98%, 한 달 전 5.26%), 신용시장은 오히려 더 긴장하고 있고(스프레드 3.26%p로 확대) 물가도 3.7%로 다시 올랐어요. 그래서 기술주로 돌아갈 때는 아직 아니에요. 돈은 원자재와 &#x27;튼튼한 배당·가치주&#x27;로 계속 옮겨 가는 중이라, 지금 잘 오르는 쪽(PDBC·BRK-B·SCHD)에 집중하고 꺾이는 쪽(금 GLD는 52주 위치 0%, QQQ)은 피합니다.</p></details>
+<p class=basis>팩트 시트·거시 지표를 보고 고름.</p>
+</section>
+<details class=glossary><summary>용어 풀이</summary>
+<p><b>PER</b> 주가가 1년 이익의 몇 배인지. 낮을수록 이익에 비해 싸요.</p>
+<p><b>변동성</b> 1년 동안 값이 얼마나 출렁였는지. 클수록 많이 흔들려요.</p>
+<p><b>최대 낙폭</b> 1년 중 가장 높던 때에서 가장 크게 빠진 비율.</p>
+<p><b>확신도</b> 에이전트가 이 가설이 맞을 거라고 보는 정도. 나중에 채점해서 확신도가 맞았는지도 봐요.</p>
+<p><b>손절선</b> 산 값보다 이만큼 떨어지면 자동으로 파는 기준.</p>
+<p class=cap>숫자는 코드가 SEC·DART·네이버 증권·Yahoo·Nasdaq에서 직접 받아 서로 대조한 값이에요. 빨강은 오름, 파랑은 내림.</p>
+</details>
+</main></body></html>
