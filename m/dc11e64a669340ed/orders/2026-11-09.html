@@ -1,0 +1,88 @@
+<!doctype html><html lang=ko><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>주문 근거</title>
+<link rel=stylesheet href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"><style>
+:root{--bg:#fff;--card:#f6f7f9;--line:#e5e8eb;--fg:#191f28;--sub:#4e5968;--weak:#8b95a1;--pri:#3182f6;--pri-s:#e8f3ff;--up:#f04452;--down:#3182f6;--ok:#03b26c;--ok-s:#e5f8ef;--bad:#f04452;--bad-s:#fdecee;--warn-s:#fff6e5;--warn:#c77800}
+@media (prefers-color-scheme:dark){:root{--bg:#101013;--card:#1c1c21;--line:#2c2c33;--fg:#ececf0;--sub:#b0b8c1;--weak:#7e8794;--pri:#4b9bff;--pri-s:#1b2a3f;--up:#ff6b78;--down:#5aa2ff;--ok:#2fd18c;--ok-s:#163326;--bad:#ff6b78;--bad-s:#3a1d22;--warn-s:#33280f;--warn:#f2b441}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;word-break:keep-all;letter-spacing:-0.01em}
+main{max-width:480px;margin:0 auto;padding:24px 20px 80px}
+h1{font-size:24px;line-height:34px;margin:0;letter-spacing:-0.02em}
+h2{font-size:20px;line-height:30px;margin:2px 0 6px;letter-spacing:-0.02em}h2 .sub{font-size:15px;color:var(--sub);font-weight:600}
+h3{font-size:17px;margin:28px 0 10px;letter-spacing:-0.02em}h4{font-size:15px;margin:20px 0 8px;color:var(--sub)}
+p{margin:6px 0}.cap{font-size:13px;color:var(--weak)}.note{font-size:13px;color:var(--sub)}.body{color:var(--sub)}
+.num{font-variant-numeric:tabular-nums}
+.lead{font-size:17px;line-height:27px;font-weight:600}.basis{font-size:13px;color:var(--weak);background:var(--bg);border-radius:12px;padding:8px 12px}
+.card{background:var(--card);border-radius:20px;padding:20px;margin:16px 0}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin:16px -20px 0;padding-left:20px;scrollbar-width:none}
+.nav a{flex:none;text-decoration:none;color:var(--fg);background:var(--card);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600}
+.nav a:active{transform:scale(.97)}
+.sumbar{display:flex;height:12px;border-radius:999px;overflow:hidden;margin:12px 0 6px;background:var(--line)}
+.sumbar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--sub)}.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;background:var(--c)}
+.temp{background:var(--warn-s);border-radius:20px;padding:16px 20px;margin:16px 0}
+.chgrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chg{background:var(--bg);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column}
+.chg b{font-size:17px}.up b{color:var(--up)}.down b{color:var(--down)}
+.range{margin:14px 0 4px}.track{position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--line),var(--line))}
+.track .dot{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--pri);border:3px solid var(--bg);transform:translate(-50%,-50%);box-shadow:0 0 0 1px var(--pri)}
+.track .mid{position:absolute;top:-4px;width:2px;height:16px;background:var(--weak);transform:translateX(-50%)}
+.rlab{display:flex;justify-content:space-between;font-size:12px;color:var(--weak);margin-top:6px}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+.tile{background:var(--bg);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column}
+.tile b{font-size:17px}.tile.up b{color:var(--up)}.tile.down b{color:var(--down)}
+.bars{margin:8px 0}.bar{display:grid;grid-template-columns:72px 1fr 64px;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+.bl{color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bt{height:10px;background:var(--line);border-radius:999px;overflow:hidden}
+.bt i{display:block;height:100%;background:var(--weak);border-radius:999px}.bar.hl .bt i{background:var(--pri)}.bv{text-align:right;color:var(--sub)}
+.meter{margin:10px 0}.mtrack{height:10px;background:var(--line);border-radius:999px;overflow:hidden}.mtrack i{display:block;height:100%;background:var(--pri);border-radius:999px}
+.hyp{background:var(--bg);border-radius:16px;padding:14px 16px;margin:10px 0}
+.hhead{display:flex;justify-content:space-between;align-items:center}.claim{font-weight:600;font-size:15px}
+.two{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}.two>div{border-radius:12px;padding:10px 12px}
+.two>div:first-child{background:var(--ok-s)}.two>div:last-child{background:var(--bad-s)}.two p{font-size:13px;margin:2px 0 0}
+details{font-size:13px;color:var(--sub);margin-top:6px}summary{cursor:pointer;color:var(--pri);font-weight:600}
+.badge{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 8px;background:var(--line);color:var(--sub)}
+.badge.ok{background:var(--ok-s);color:var(--ok)}.badge.bad{background:var(--bad-s);color:var(--bad)}.badge.warn{background:var(--warn-s);color:var(--warn)}
+.verify{margin:8px 0}
+.stop{background:var(--bad-s);border-radius:16px;padding:12px 16px;margin:16px 0}.stop b{color:var(--bad)}.stop p{font-size:13px}
+.warn{background:var(--warn-s);border-radius:16px;padding:12px 16px;margin:16px 0}.warn ul{margin:6px 0 0;padding-left:18px;font-size:13px}
+.ev{margin:4px 0;padding-left:18px;font-size:13px;color:var(--sub)}
+.glance .tile b{font-size:17px}details.view{margin:20px 0 8px;font-size:15px}
+.glossary{font-size:13px;color:var(--sub)}.glossary b{color:var(--fg)}
+</style></head>
+<body><main>
+<p class=cap>주문 근거</p><h1>11/09 주간 결정</h1>
+<p class=body>2건 · 매수 7,500원. 종목마다 왜 사는지, 숫자, 틀렸을 때 할 일을 모았어요.</p>
+<div class=sumbar><i style="width:356.0%;background:#3182f6"></i></div><div class=legend><span style="--c:#3182f6">드러켄밀러 2.7만</span></div>
+<div class=temp><b>막스가 본 시장 온도</b><p class=note>미지근하다가 차가워지는 중: 공포지수(VIX)가 한 달 새 15.0에서 28.2로 뛰고 신용 스프레드도 3.03%p에서 3.48%p로 벌어져 겁이 퍼지고 있어요. 그래도 시장 전체 가격(VOO PER 24.2배)은 아직 싸지 않아서 &#x27;헐값에 사는 비관&#x27;까지는 오지 않았어요.</p></div>
+<nav class=nav><a href="#o0">PDBC</a><a href="#o1">BRK-B</a></nav>
+<section class=card id=o0>
+<p class=cap>드러켄밀러</p>
+<h2>PDBC <span class=sub>매도 19,201원</span></h2>
+<p class=lead>기름·곡물·금속 같은 원자재를 한꺼번에 담은 ETF예요. 물가와 유가가 오르는 동안 1년 +47.4%, 52주 최고가 근처(위치 99%)로 오름세가 뚜렷해서, 그 오름세에 올라탑니다.</p>
+<div class="tiles glance"><div class="tile "><span class=cap>1년 중 지금 값</span><b class=num>중간</b><span class=cap>범위의 78% 지점</span></div><div class="tile "><span class=cap>1년 수수료</span><b class=num>0.62%</b><span class=cap>ETF 보수</span></div><div class="tile "><span class=cap>에이전트 확신</span><b class=num>60%</b><span class=cap>10번 중 6번쯤은 맞을 거라고 봐요.</span></div><div class="tile "><span class=cap>흔들림</span><b class=num>보통</b><span class=cap>1년 변동성 21%</span></div></div>
+<div class=verify><span class="badge ok">숫자 검증 통과</span><span class=cap> Yahoo · Nasdaq 대조 · 기준 2026-11-09</span></div>
+<div class=stop style="border-color:var(--up,#e5484d)"><b>익절선 +12%</b><p>산 값보다 12% 오르면 50% 팔아 번 돈을 확정해요. 나머지는 더 오를 몫으로 들고 가요. 지금 값 $18.77 기준이면 $21.02 위</p></div><div class=stop><b>손절선 -8%</b><p>산 값보다 8% 떨어지면 이유를 따지지 않고 자동으로 팔아요. 지금 값 $18.77 기준이면 $17.27 아래</p></div>
+<div class=warn><b>막스(위험 관리)의 한마디</b><ul><li>드러켄밀러의 PDBC 매도 이유 중 &#x27;52주 범위 위치 99%→78%&#x27;는 팩트 시트에 없는 숫자예요(PDBC는 매수 종목이 아니라 시트가 없어요). 확인이 필요해요. 1개월 -4.5%와 수익률 -4.1%는 보유 내역과 맞아요. 꺾이면 접는 건 원래 스타일이라 매도 자체는 허용해요.</li></ul></div>
+<h3>숫자로 보면</h3><h4>값이 어떻게 움직였나</h4><div class="chgrow"><div class="chg down"><span class=cap>1개월</span><b class=num>-4.5%</b></div><div class="chg up"><span class=cap>3개월</span><b class=num>+5.3%</b></div><div class="chg up"><span class=cap>1년</span><b class=num>+37.7%</b></div></div><div class=range><div class=track><i class=dot style="left:77.9%"></i></div><div class=rlab><span>1년 최저 $13.25</span><span>최고 $20.34</span></div><p class=note>지금 $18.77 · 1년 범위의 <b>중간쯤</b>이에요.</p></div><h4>얼마나 흔들리나</h4><div class=tiles><div class="tile "><span class=cap>1년 흔들림(변동성)</span><b class=num>21.3%</b><span class=cap>보통</span></div><div class="tile down"><span class=cap>가장 크게 빠졌을 때</span><b class=num>-16.6%</b><span class=cap>1년 최대 낙폭</span></div></div><h4>안에 뭐가 들었나</h4><div class=bars><div class="bar"><span class=bl>IUGXX</span><div class=bt><i style="width:100%"></i></div><span class="bv num">80.2%</span></div></div><p class=note>분류: Commodities Broad Basket · 상위 10개가 80%</p><div class=tiles><div class="tile "><span class=cap>1년 수수료(보수)</span><b class=num>0.62%</b></div><div class="tile "><span class=cap>시장과 같이 움직이는 정도(베타)</span><b class=num>0.09</b><span class=cap>1이면 시장과 같아요</span></div></div>
+<h3>걸고 있는 가설</h3><div class=hyp><div class=hhead><span class=cap>가설 1023-4</span><span class="badge ">최근 채점: 아직</span></div><p class=claim>물가와 유가가 다시 오르는 흐름이 이어져 원자재 가격 추세가 계속된다.</p><div class="meter "><div class=mtrack><i style="width:60%"></i></div><div class=rlab><span>확신 60%</span><span>10번 중 6번쯤은 맞을 거라고 봐요.</span></div></div><div class=two><div><span class=cap>맞으면 이렇게 보여요</span><p>다음 미국 소비자물가 발표 때까지(11월 중순, 날짜 확인 필요) 봅니다. PDBC가 산 값 위에 있고 52주 범위 위치가 90% 이상이면 맞아요. 소비자물가 상승률이 3.7%에서 내려가거나, 유가(WTI)가 미국·이란 협상 타결로 90달러 아래로 떨어지면 틀려요.</p></div><div><span class=cap>틀리면 이렇게 해요</span><p>산 값보다 8% 떨어지면 이유를 따지지 않고 전부 팝니다. 미국·이란 합의가 확정돼 유가가 90달러 아래로 내려가도 전부 팝니다.</p></div></div><details><summary>최근 채점 근거</summary><p>2026-11-09 아직: 판단하기로 한 미국 물가 발표(브리프상 이번 주 화요일 밤)가 아직 안 나왔어요. 다만 지금 숫자는 &#x27;틀림&#x27; 쪽으로 기울어 있어요. PDBC는 산 값보다 -4.1%이고, 52주 범위 위치는 78%로 기준 90%에 못 미쳐요. 유가(WTI)도 90.3달러로 &#x27;틀림&#x27; 기준선인 90달러에 바짝 붙었어요.</p></details></div><div class=hyp><div class=hhead><span class=cap>가설 1109-10</span></div><p class=claim>유가가 이끌던 원자재 오름세는 끝났다.</p><details><summary>더 보기</summary><p>당분간 PDBC 없이 가는 게 낫다.</p></details><div class="meter "><div class=mtrack><i style="width:60%"></i></div><div class=rlab><span>확신 60%</span><span>10번 중 6번쯤은 맞을 거라고 봐요.</span></div></div><div class=two><div><span class=cap>맞으면 이렇게 보여요</span><p>11/30까지 봅니다. PDBC가 오늘 가격 18.77달러 아래에 머물면 맞아요(판 게 잘한 것). 물가가 3.7%보다 더 오르고 PDBC가 52주 범위 위치 90% 이상으로 돌아가면 틀려요.</p></div><div><span class=cap>틀리면 이렇게 해요</span><p>&#x27;틀림&#x27; 조건이 나오면 판단이 틀렸다고 인정하고 PDBC 재매수를 검토합니다.</p></div></div></div>
+<details class=view><summary>이 에이전트가 지금 시장을 보는 눈</summary><p class=body>금리는 내려왔지만 이건 겁먹은 돈이 국채로 도망가서 생긴 일이에요. 오히려 신용시장 긴장(스프레드 3.03→3.48%p)과 공포지수(VIX 15.0→28.2)가 커졌으니, 아직 위험한 주식을 다시 살 신호가 아니라 &#x27;방어주 + 현금&#x27;으로 버틸 때라고 봐요. 원자재는 미국·이란 협상 기대로 유가가 96.66달러(11/3)에서 90.3달러로 내려오면서 오름세가 꺾였어요. 그래서 오르는 쪽(BRK-B)에 더 싣고, 꺾인 쪽(PDBC)은 자릅니다.</p></details>
+<p class=basis>팩트 시트·거시 지표를 보고 고름.</p>
+</section><section class=card id=o1>
+<p class=cap>드러켄밀러</p>
+<h2>BRK-B <span class=sub>매수 7,500원</span></h2>
+<p class=lead>시장이 흔들리는데도 1개월 +11.7%로 오르는 몇 안 되는 종목이에요. 52주 범위 위치는 93%, PER(주가가 이익의 몇 배인지)은 14.7배로 비싸지 않아요. 잘 되는 쪽에 조금 더 싣되, 한 종목 40% 한도 안에서만 늘려요.</p>
+<div class="tiles glance"><div class="tile "><span class=cap>1년 중 지금 값</span><b class=num>비싼 자리</b><span class=cap>범위의 93% 지점</span></div><div class="tile "><span class=cap>이익 대비 몸값</span><b class=num>보통</b><span class=cap>PER 14.7배 · 3년 기준</span></div><div class="tile "><span class=cap>에이전트 확신</span><b class=num>60%</b><span class=cap>10번 중 6번쯤은 맞을 거라고 봐요.</span></div><div class="tile "><span class=cap>흔들림</span><b class=num>보통</b><span class=cap>1년 변동성 15%</span></div></div>
+<div class=verify><span class="badge ok">숫자 검증 통과</span><span class=cap> SEC · Yahoo · Nasdaq 대조 · 기준 2026-11-09</span></div>
+<div class=stop style="border-color:var(--up,#e5484d)"><b>익절선 +15%</b><p>산 값보다 15% 오르면 50% 팔아 번 돈을 확정해요. 나머지는 더 오를 몫으로 들고 가요. 지금 값 $570.89 기준이면 $656.52 위</p></div><div class=stop><b>손절선 -7%</b><p>산 값보다 7% 떨어지면 이유를 따지지 않고 자동으로 팔아요. 지금 값 $570.89 기준이면 $530.93 아래</p></div>
+
+<h3>숫자로 보면</h3><h4>값이 어떻게 움직였나</h4><div class="chgrow"><div class="chg up"><span class=cap>1개월</span><b class=num>+11.7%</b></div><div class="chg up"><span class=cap>3개월</span><b class=num>+7.8%</b></div><div class="chg up"><span class=cap>1년</span><b class=num>+14.4%</b></div></div><div class=range><div class=track><i class=dot style="left:92.8%"></i></div><div class=rlab><span>1년 최저 $465.40</span><span>최고 $579.09</span></div><p class=note>지금 $570.89 · 1년 중 <b>가장 비싼 자리</b> 근처예요. 오름세가 강하다는 뜻이기도 해요.</p></div><h4>얼마나 흔들리나</h4><div class=tiles><div class="tile "><span class=cap>1년 흔들림(변동성)</span><b class=num>15.1%</b><span class=cap>보통</span></div><div class="tile down"><span class=cap>가장 크게 빠졌을 때</span><b class=num>-9.4%</b><span class=cap>1년 최대 낙폭</span></div></div><h4>몸값: 이익에 비해 비싼가</h4><p class=note>PER = 주가가 1년 이익의 몇 배인지. 낮을수록 싸요.</p><div class=tiles><div class="tile "><span class=cap>지금 PER</span><b class=num>14.7배</b></div><div class="tile "><span class=cap>3년 중간값</span><b class=num>14.1배</b></div><div class="tile "><span class=cap>자산 대비(PBR)</span><b class=num>1.7배</b></div></div><div class=range><div class=track><i class=mid style="left:56.4%"></i><i class=dot style="left:62.7%"></i></div><div class=rlab><span>3년 최저 9.1배</span><span>최고 18.0배</span></div><p class=note>최근 3년 중 <b>보통</b>이에요. 가운데 눈금은 3년 중간값.</p></div><div class=decomp><p class=cap>지난 1년 주가 +13.6%는 어디서 왔나</p><div class=tiles><div class="tile up"><span class=cap>이익 변화</span><b class=num>+27.1%</b></div><div class="tile down"><span class=cap>몸값 배수 변화</span><b class=num>-10.7%</b></div></div><p class=note>이익이 늘어서 오른 것에 가까워요.</p></div><h4>장사는 잘 되나</h4><div class=tiles><div class="tile up"><span class=cap>매출</span><b class=num>+3.9%</b><span class=cap>1년 전보다</span></div><div class="tile up"><span class=cap>순이익</span><b class=num>+36.3%</b><span class=cap>1년 전보다</span></div><div class="tile "><span class=cap>자기 돈으로 버는 효율(ROE)</span><b class=num>11.5%</b></div><div class="tile "><span class=cap>현금</span><b class=num>$41.4B</b></div><div class="tile "><span class=cap>남는 현금 수익률(FCF)</span><b class=num>1.9%</b><span class=cap>높을수록 좋아요</span></div></div><p class=note>3년 동안 매출이 해마다 평균 +7.1% 늘었어요 (2022~2025).</p><p class=note>다음 실적 발표 예상: <b>2026-11-10</b></p>
+<h3>걸고 있는 가설</h3><div class=hyp><div class=hhead><span class=cap>가설 1102-7</span><span class="badge ">최근 채점: 아직</span></div><p class=claim>AI 빚 걱정과 신용시장 긴장이 이어지는 동안, 돈은 배당을 꾸준히 주는 튼튼한 회사 묶음(SCHD)으로 계속 옮겨 간다.</p><div class="meter "><div class=mtrack><i style="width:60%"></i></div><div class=rlab><span>확신 60%</span><span>10번 중 6번쯤은 맞을 거라고 봐요.</span></div></div><div class=two><div><span class=cap>맞으면 이렇게 보여요</span><p>11/20까지 봅니다. SCHD가 산 값 위에 있고 QQQ보다 더 잘하며, 하이일드 스프레드가 3.0%p 위면 맞아요. 스프레드가 3.0%p 아래로 내려가고 나스닥이 26,702 위에서 마감하면 틀려요(돈이 다시 기술주로 가는 것).</p></div><div><span class=cap>틀리면 이렇게 해요</span><p>산 값보다 6% 떨어지면 전부 팝니다. 위 &#x27;틀림&#x27; 조건이 모두 나오면 SCHD를 팔고, 가설 1023-6의 규칙대로 QQQ를 검토합니다.</p></div></div><details><summary>최근 채점 근거</summary><p>2026-11-09 아직: 판단일 11/20 전이에요. 스프레드 3.48%p와 SCHD 1개월 +6.1%(QQQ -12.2%)는 &#x27;맞음&#x27; 쪽이에요. 그런데 SCHD가 아직 산 값보다 -1.1%라서 &#x27;산 값 위&#x27; 조건은 못 채웠어요.</p></details></div><div class=hyp><div class=hhead><span class=cap>가설 1109-9</span></div><p class=claim>신용시장 긴장이 이어지는 동안, 돈은 현금이 많고 덜 흔들리는 회사(BRK-B)와 배당주 묶음(SCHD)에 계속 머문다.</p><div class="meter "><div class=mtrack><i style="width:60%"></i></div><div class=rlab><span>확신 60%</span><span>10번 중 6번쯤은 맞을 거라고 봐요.</span></div></div><div class=two><div><span class=cap>맞으면 이렇게 보여요</span><p>11/27까지 봅니다. 스프레드가 3.0%p 위에 머물고 BRK-B가 QQQ보다 잘하면 맞아요. 스프레드가 3.0%p 아래로 내려가고 나스닥이 26,702 위에서 마감하면 틀려요.</p></div><div><span class=cap>틀리면 이렇게 해요</span><p>손절선(BRK-B -7%, SCHD -6%)에 닿으면 자동으로 팝니다. &#x27;틀림&#x27; 조건이 둘 다 나오면 방어주를 줄이고 QQQ를 검토합니다.</p></div></div></div>
+<details class=view><summary>이 에이전트가 지금 시장을 보는 눈</summary><p class=body>금리는 내려왔지만 이건 겁먹은 돈이 국채로 도망가서 생긴 일이에요. 오히려 신용시장 긴장(스프레드 3.03→3.48%p)과 공포지수(VIX 15.0→28.2)가 커졌으니, 아직 위험한 주식을 다시 살 신호가 아니라 &#x27;방어주 + 현금&#x27;으로 버틸 때라고 봐요. 원자재는 미국·이란 협상 기대로 유가가 96.66달러(11/3)에서 90.3달러로 내려오면서 오름세가 꺾였어요. 그래서 오르는 쪽(BRK-B)에 더 싣고, 꺾인 쪽(PDBC)은 자릅니다.</p></details>
+<p class=basis>팩트 시트·거시 지표를 보고 고름.</p>
+</section>
+<details class=glossary><summary>용어 풀이</summary>
+<p><b>PER</b> 주가가 1년 이익의 몇 배인지. 낮을수록 이익에 비해 싸요.</p>
+<p><b>변동성</b> 1년 동안 값이 얼마나 출렁였는지. 클수록 많이 흔들려요.</p>
+<p><b>최대 낙폭</b> 1년 중 가장 높던 때에서 가장 크게 빠진 비율.</p>
+<p><b>확신도</b> 에이전트가 이 가설이 맞을 거라고 보는 정도. 나중에 채점해서 확신도가 맞았는지도 봐요.</p>
+<p><b>손절선</b> 산 값보다 이만큼 떨어지면 자동으로 파는 기준.</p>
+<p class=cap>숫자는 코드가 SEC·DART·네이버 증권·Yahoo·Nasdaq에서 직접 받아 서로 대조한 값이에요. 빨강은 오름, 파랑은 내림.</p>
+</details>
+</main></body></html>
