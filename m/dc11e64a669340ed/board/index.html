@@ -70,7 +70,11 @@ th{color:var(--sub);font-weight:600}
 <p><span class="sw" style="background:var(--pri)"></span>브랜드 1색 · 1등·강조·링크 &nbsp; <span class="sw" style="background:var(--up)"></span>오름·위험 &nbsp; <span class="sw" style="background:var(--down)"></span>내림</p>
 <p class="note">나머지는 회색 9단계. 다혜가 직접 보는 도구라 어두운 바탕 고정. 그래프는 에이전트별 색 대신 회색 선 + 1등만 브랜드 색 + 선 끝 이름표. 정본 코드: invest-brief 저장소 kit_css.py.</p></section>
 
-<section class="card"><div class="row"><h2>아침 브리프 디벨롭 · 시안 D3</h2><span class="chip">제안 · 다혜 확인 대기</span></div>
+<section class="card"><div class="row"><h2>아침 브리프 · 실제 구현 미리보기</h2><span class="chip ok">구현 완료 · 11/24 07:15부터</span></div>
+<p class="sub">D3를 실제 코드로 만들었어요(invest-brief). 11/23 데이터로 클라우드에서 시험 실행한 결과 그대로예요 — 보유 종목 뉴스·목표가, 떠오르는 종목 3+5(네이버·Yahoo 상승 + 뉴스 본문 + 채널 언급 + 공시 신호로 자동 선정), 분야별 튄 종목, 한 단계 더 전부 자동으로 채워졌어요.</p>
+<p class="note">디자인 점검(tools/design_audit.js): 글자 짝 3단계, 4px 밖 간격 0, 섹션 32, 모서리 3값, 3겹 상자 0, 대비 4.5 미만 0, 눈금자 이름표 겹침 0, 가로 넘침 0. 휴대폰 약 22장.</p>
+<div class="grid"><div class="in" style="display:flex;flex-direction:column;gap:8px;grid-column:1/-1"><p class="note"><a href="boards/brief-develop/live-preview.html">크게 열기</a></p><div class="shot" style="max-width:420px"><img src="boards/brief-develop/live-preview.png" alt="실제 구현 미리보기"></div></div></div></section>
+<section class="card"><div class="row"><h2>아침 브리프 디벨롭 · 시안 D3</h2><span class="chip">채택 · 구현됨</span></div>
 <p class="sub">글 대신 그림, 본문 17. 다혜 요청(11/23)으로 페이지 전체를 브라우저에서 전수 점검하고 고쳤어요.</p>
 <div class="tw"><table><tr><th>점검 항목</th><th>처음</th><th>고친 뒤</th></tr>
 <tr><td>글자 크기·줄간격 짝</td><td>24/34·17/27·13/19만</td><td>그대로 통과</td></tr>
