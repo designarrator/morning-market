@@ -1,0 +1,93 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>시안 A · 내 포트폴리오 먼저</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"><style>
+:root{color-scheme:dark;
+ --grey-50:#101215;--grey-100:#181a1e;--grey-200:#212429;--grey-300:#2c3036;--grey-400:#464c55;
+ --grey-500:#6c737d;--grey-600:#9aa1aa;--grey-700:#c2c7ce;--grey-900:#eef0f2;
+ --bg:var(--grey-50);--card:var(--grey-100);--subtle:var(--grey-200);--line:var(--grey-300);
+ --weak:var(--grey-500);--sub:var(--grey-600);--fg:var(--grey-900);
+ --pri:#5fc2ae;--pri-s:color-mix(in srgb,var(--pri) 16%,var(--card));
+ --up:#f0706a;--up-s:color-mix(in srgb,var(--up) 16%,var(--card));
+ --down:#7ea6f2;--down-s:color-mix(in srgb,var(--down) 16%,var(--card));
+ --r-card:20px;--r-btn:16px;--r-chip:999px;
+ --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:17px;line-height:27px;font-weight:400;
+ letter-spacing:-0.01em;word-break:keep-all;overflow-wrap:anywhere;
+ padding:24px max(20px,env(safe-area-inset-right,0px)) 64px max(20px,env(safe-area-inset-left,0px))}
+h1,h2,h3,h4,p{margin:0}
+h1{font-size:24px;line-height:34px;font-weight:700;letter-spacing:-0.02em}
+h2,h3{font-size:17px;line-height:27px;font-weight:700;letter-spacing:-0.02em}
+h4{font-size:13px;line-height:19px;font-weight:600;color:var(--sub)}
+small,.cap,.note{font-size:13px;line-height:19px}
+.cap{color:var(--weak)} .note{color:var(--sub)} .sub{color:var(--sub)}
+.big{font-size:24px;line-height:34px;font-weight:700;letter-spacing:-0.02em}
+.num{font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--sub)}
+a{color:var(--pri);text-decoration:none}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+button,a,summary{-webkit-tap-highlight-color:transparent}
+button:active,a:active,summary:active{transform:scale(.97);transition:transform .1s}
+details>summary{cursor:pointer;list-style:none;color:var(--pri);font-size:13px;line-height:19px;font-weight:600}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸ ";} details[open]>summary::before{content:"▾ ";}
+ul{margin:0;padding-left:20px}
+.card{background:var(--card);border-radius:var(--r-card);padding:20px;display:flex;flex-direction:column;gap:12px}
+.in{background:var(--subtle);border-radius:var(--r-btn);padding:12px 16px}
+.chip{display:inline-block;font-size:13px;line-height:19px;font-weight:600;border-radius:var(--r-chip);padding:2px 8px;background:var(--subtle);color:var(--sub);white-space:nowrap}
+.chip.ok{background:var(--pri-s);color:var(--pri)} .chip.bad{background:var(--up-s);color:var(--up)}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.wrap{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+.banner{background:var(--subtle);border-radius:var(--r-btn);padding:12px 16px}
+.tg{display:flex;flex-direction:column;gap:8px}
+.bubble{background:var(--subtle);border-radius:var(--r-card);border-bottom-left-radius:var(--r-btn);padding:12px 16px;color:var(--fg);white-space:pre-line}
+.bubble a{color:var(--pri)}
+.stack{display:flex;flex-direction:column;gap:8px}
+.hold{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-top:1px solid var(--line)}
+.hold:first-child{border-top:0;padding-top:0}
+.hold .why{grid-column:1/-1}
+.flow{display:flex;flex-direction:column}
+.node{background:var(--subtle);border-radius:var(--r-btn);padding:12px 16px}
+.arr{width:2px;height:16px;background:var(--pri);margin-left:24px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:var(--subtle);border-radius:var(--r-btn);padding:12px;display:flex;flex-direction:column;gap:4px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vs>div{border-radius:var(--r-btn);padding:12px 16px}
+.pro{background:var(--pri-s)} .con{background:var(--up-s)}
+.meter{height:8px;border-radius:999px;background:var(--line);overflow:hidden}.meter i{display:block;height:100%;background:var(--pri)}
+</style></head><body><div class="wrap">
+<div class="banner"><p class="cap">시안 A · 내 포트폴리오 먼저 · 11/23 실제 데이터로 그린 시안 · 매수 추천 아님</p></div>
+<section class="tg"><p class="cap">① 아침 7시 15분, 텔레그램에 이렇게 와요</p><div class="bubble">11/24 아침 시장
+
+내 계좌 284,418원 (-5.2%)
+지수보다 +3.2%p 덜 잃는 중
+
+· 버크셔가 버텼고(-0.4%) 달리오 채권이 받쳐 줬어요(+1.4%)
+· 세상: 미국 반도체 -10.7% → 코스피 -5.2%
+· 떠오르는 종목: 에이피알 +9.1%, 휴림로봇 상한가
+
+<a href="#">자세히 보기</a></div></section>
+<p class="cap">② «자세히 보기»를 누르면 이 페이지가 열려요</p>
+<header class="stack"><p class="cap">2026-11-24 아침</p><h1>내 종목은 버텼고, 시장은 크게 빠졌어요</h1></header>
+<section class="card"><p class="cap">내 계좌 · 토스 실제</p><div class="row"><span class="big num">284,418원</span><b class="num down">-5.19%</b></div>
+<p class="note">시작 300,000원 · 그냥 지수(보글)보다 <b class="up">+3.2%p</b> 덜 잃는 중 · 2/15 첫 판정까지 84일</p></section><section class="card"><h2>내 에이전트들이 들고 있는 것</h2><div><div class="hold"><span><b>버크셔(BRK-B)</b> <small class="sub">버핏·드러켄밀러</small></span><b class="num down">-0.36%</b><p class="why note">빚이 적고 현금을 많이 버는 회사라 공포장에서 버티려고 들고 있어요.</p><p class="why note">가설 «12/21까지 VOO보다 3%p 덜 빠진다» → 지금 <b class='up'>맞는 중</b></p></div><div class="hold"><span><b>실리콘투</b> <small class="sub">린치</small></span><b class="num up">+2.16%</b><p class="why note">K뷰티를 해외에 파는 회사. 11/1~20 화장품 수출 +61.7%라 «이야기가 안 깨졌다»고 봐요.</p><p class="why note">주의: 린치 몫의 46% — 40% 상한 넘음, 11/30 결정 때 유지/매도 판단</p></div><div class="hold"><span><b>미국 장기채(TLT)</b> <small class="sub">달리오</small></span><b class="num up">+1.37%</b><p class="why note">주식이 빠질 때 받쳐 주는 보험이에요. 오늘 제 역할을 했어요.</p><p class="why note">가설 «국채가 금·원자재보다 강하다» → 오늘은 <b class='up'>맞음</b></p></div><div class="hold"><span><b>금(GLD)</b> <small class="sub">달리오</small></span><b class="num down">-3.67%</b><p class="why note">물가 보험인데, 오늘은 빚 갚으려 다 파는 장이라 같이 빠졌어요.</p><p class="why note">보험이 안 통한 날 — 다음 주 비중 점검 대상</p></div><div class="hold"><span><b>미국 시장 전체(VOO)</b> <small class="sub">버핏</small></span><b class="num down">-3.41%</b><p class="why note">미국 대표 500곳. 공포 때문에 빠진 거라 팔 이유는 아니라고 봐요.</p></div></div></section>
+<section class="card"><h2>세상은 이렇게 돌아갔어요</h2><div class="flow">
+<div class="node"><b>미국이 금리를 더 올릴 수 있다는 걱정</b><p class="note">물가가 4.1%로 다시 올라서요</p></div><div class="arr"></div>
+<div class="node"><b>엔비디아 회계 조사 보도</b><p class="note">AI 대장주에 대한 믿음이 흔들렸어요</p></div><div class="arr"></div>
+<div class="node"><b>미국 반도체 하루 -10.7%</b><p class="note">빚 내서 산 사람들이 한꺼번에 팔았어요</p></div><div class="arr"></div>
+<div class="node"><b>코스피 -5.2%</b><p class="note">한국은 반도체 비중이 커서 더 크게 맞았어요</p></div></div><div class="tiles"><div class="tile"><small class="sub">미국 10년 금리</small><b class="num">4.91%</b><small class="down num">▼ 0.14%p</small></div>
+<div class="tile"><small class="sub">원·달러</small><b class="num">1,346원</b><small class="up num">▲ 0.84%</small></div>
+<div class="tile"><small class="sub">금</small><b class="num">$3,515</b><small class="down num">▼ 4.62%</small></div></div><details><summary>한 단계 더 깊게</summary><div class="stack" style="margin-top:8px"><div class="in"><h4>한 단계 더: 금리가 왜 오히려 내렸나</h4><p class="note" style="margin-top:8px">주식을 판 돈이 안전한 미국 국채로 피난 가서 채권값이 오르고(=금리 하락) 있어요. 그래서 달리오의 채권이 받쳐 줬어요. 반대로 금까지 빠진 건 «빚 갚으려 가진 걸 다 판다»는 신호예요.</p></div>
+<div class="in"><h4>증권사 원문에서</h4><p class="note" style="margin-top:8px">하나증권 «ETF Playbook»(11/19, PDF 34쪽): 내년 미국 기업 매출 증가는 9.1%로 둔화하는데 이익 전망은 18.7% 올라 있어요. 매출이 둔화한 해엔 이익 전망이 크게 깎인 경험이 있어요. 위험한 회사채 금리 격차는 2010년 이후 상위 1%예요. <a href="#">원문</a></p></div></div></details></section>
+<section class="stack"><h2>공시·뉴스로 찾은 떠오르는 종목</h2><p class="note">정해 둔 대표 종목이 아니라, 오늘 공시·거래량·뉴스·채널 언급이 겹친 종목이에요. 바로 사라는 뜻이 아니라 에이전트들이 다음 결정 때 같이 봐요.</p></section>
+<section class="card"><div class="row"><h2>에이피알</h2><b class="num up">+9.13%</b></div><p class="cap">코스피 · 시총 9.6조 · 뷰티 기기·화장품(메디큐브)</p>
+<div class="vs"><div class="pro"><small class="sub">왜 올랐나</small><ul style="margin-top:4px"><li class="note">한중 FTA·한한령 해제 기대로 화장품주가 같이 올랐어요</li><li class="note">외국인과 기관이 같이 샀어요(뉴스핌)</li><li class="note">메디큐브가 아마존 블프 첫날 상위권(브리프)</li></ul></div>
+<div class="con"><small class="sub">조심할 점</small><ul style="margin-top:4px"><li class="note">3개월 만에 반토막 난 뒤라 단기 반등일 수 있어요</li><li class="note">하루 급등 뒤 되돌림이 흔해요</li></ul></div></div>
+<p class="note">린치의 실리콘투와 같은 «K뷰티 수출» 흐름 · 주의: 병의원 기기 진출 — 다혜 일과 겹치는지 이해충돌 확인 필요</p><div class="row"><small class="sub">근거 신호 3개 (공시·뉴스·거래·채널 언급)</small><span class="chip">관찰 후보</span></div></section><section class="card"><div class="row"><h2>휴림로봇</h2><b class="num up">+30.0%</b></div><p class="cap">코스닥 · 시총 6,861억 · 산업용 로봇</p>
+<div class="vs"><div class="pro"><small class="sub">왜 올랐나</small><ul style="margin-top:4px"><li class="note">삼성전기에 자동화 로봇 공급 본계약(공시)</li><li class="note">같은 날 로봇주 여러 개가 상한가 — 테마로 몰림</li></ul></div>
+<div class="con"><small class="sub">조심할 점</small><ul style="margin-top:4px"><li class="note">시총이 작고 테마로 같이 오른 종목은 며칠 안에 되돌리는 일이 많아요</li><li class="note">계약 금액이 회사 매출에 비해 얼마나 큰지 확인 전</li></ul></div></div>
+<p class="note">지금 보유 종목과 연결 없음 · 이해충돌 없음</p><div class="row"><small class="sub">근거 신호 2개 (공시·뉴스·거래·채널 언급)</small><span class="chip">관찰 후보</span></div></section>
+<section class="card"><h2>오늘의 개념 · 안전자산으로 피난</h2><p class="note">겁이 나면 돈이 주식에서 미국 국채로 옮겨 가요. 오늘 금리가 내린 이유예요.</p><details><summary>퀴즈 풀기</summary><p class="note" style="margin-top:8px">(지금 브리프의 퀴즈가 그대로 들어가요)</p></details></section>
+</div></body></html>
