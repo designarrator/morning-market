@@ -219,6 +219,8 @@ blockquote .by{font-size:13px;line-height:19px;color:var(--sub)}
 
 footer{font-size:13px;line-height:19px;color:var(--weak)}
 @media (prefers-reduced-motion:no-preference){.node,.story{transition:opacity .2s}}
+.tk{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+a.chip{color:inherit;text-decoration:none}
 </style>
 </head><body>
 
@@ -376,6 +378,10 @@ footer{font-size:13px;line-height:19px;color:var(--weak)}
       });
       return h+'</div>';
     }
+    function tossUrl(o){ var c=String(o.code||o.sym||""), m=c.match(/^(\d{6})(\.K[SQ])?$/);
+      var path=m?"/stocks/A"+m[1]:"/search?query="+(c?c.replace("-","."):o.name);
+      return "supertoss://securities?url="+encodeURIComponent("https://service.tossinvest.com/?nextLandingUrl="+encodeURIComponent(path))+"&clearHistory=true&swipeRefresh=true"; }
+    function tk(o){ return '<a class="tk" href="'+tossUrl(o)+'">'+esc(o.name)+'</a>'; }
     var pf=document.getElementById("pf"), P=B.portfolio||[], A=B.account;
     pf.hidden=!(P.length||A); pf.innerHTML="";
     if(!pf.hidden){
@@ -384,10 +390,10 @@ footer{font-size:13px;line-height:19px;color:var(--weak)}
         t+='<div class="hd2"><b class="num" style="font-size:24px;line-height:34px">'+fmt(tot,0)+'원</b><b class="num '+cls(rr)+'" style="font-size:17px;line-height:27px">'+pct(rr)+'</b></div>'+
            '<p class="say">그냥 지수보다 <b class="'+cls(A.vs_bogle)+'">'+(A.vs_bogle>0?"+":"")+fmt(A.vs_bogle,1)+'%p</b> '+(A.vs_bogle>=0?"앞서는 중":"뒤지는 중")+'</p>'; }
       if(P.length){ t+='<div class="pfrow"><span class="h" style="text-align:left">종목</span><span class="h">어제 대비</span><span class="h">산 뒤로</span>';
-        P.forEach(function(h){ t+='<span>'+esc(h.name)+'</span><span class="r '+cls(h.d1)+'">'+pct(h.d1,1)+'</span><span class="r '+cls(h.since||0)+'">'+(h.since==null?"–":pct(h.since,1))+'</span>'; });
+        P.forEach(function(h){ t+='<span>'+tk(h)+'</span><span class="r '+cls(h.d1)+'">'+pct(h.d1,1)+'</span><span class="r '+cls(h.since||0)+'">'+(h.since==null?"–":pct(h.since,1))+'</span>'; });
         t+='</div><details><summary style="font-size:17px;line-height:27px">종목별 오늘 뉴스·남들 시각 보기</summary><div style="display:flex;flex-direction:column;gap:24px;margin-top:12px">';
         P.forEach(function(h){
-          t+='<div class="hold"><div><h3 style="margin:0">'+esc(h.name)+'</h3><span class="lab">'+esc((h.agents||[]).join(" · "))+'</span></div>'+
+          t+='<div class="hold"><div><h3 style="margin:0">'+tk(h)+'</h3><span class="lab">'+esc((h.agents||[]).join(" · "))+'</span></div>'+
              '<div class="tiles2"><div class="tl"><span class="lab">어제 대비</span><span class="v '+cls(h.d1)+'">'+pct(h.d1)+'</span></div><div class="tl"><span class="lab">산 뒤로</span><span class="v '+cls(h.since||0)+'">'+(h.since==null?"–":pct(h.since,1))+'</span></div></div>';
           if(h.news) t+='<div class="box"><span class="t">오늘 뉴스</span><p class="say">'+esc(h.news)+'</p></div>';
           if(h.street||h.target){ t+='<div class="box"><span class="t">남들은 어떻게 보나</span>'+(h.street?'<p class="say">'+esc(h.street)+'</p>':'');
@@ -412,7 +418,7 @@ footer{font-size:13px;line-height:19px;color:var(--weak)}
     if(M.length){ var t2='<span class="lab" style="font-weight:600">분야별 오늘 가장 튄 종목</span><div style="display:flex;flex-direction:column;gap:16px">';
       var mk=0; (B.markets||[]).forEach(function(m){ if(m.name==="코스피") mk=m.chg_pct; });
       M.forEach(function(m){ var w=Math.min(50,Math.abs(m.chg)/30*50), mw=Math.min(50,Math.abs(mk)/30*50);
-        t2+='<div class="srow"><div class="top3"><span><span class="lab">'+esc(m.sector)+'</span> <b>'+esc(m.name)+'</b></span><b class="num '+cls(m.chg)+'" style="font-size:17px;line-height:27px">'+pct(m.chg,1)+'</b></div>'+
+        t2+='<div class="srow"><div class="top3"><span><span class="lab">'+esc(m.sector)+'</span> <b>'+tk(m)+'</b></span><b class="num '+cls(m.chg)+'" style="font-size:17px;line-height:27px">'+pct(m.chg,1)+'</b></div>'+
             '<div class="dv"><span class="mid"></span><i style="background:var(--'+(m.chg>=0?"up":"down")+');'+(m.chg>=0?"left:50%":"left:"+(50-w)+"%")+';width:'+w+'%"></i><i style="background:var(--'+(mk>=0?"up":"down")+');opacity:.6;'+(mk>=0?"left:50%":"left:"+(50-mw)+"%")+';width:'+mw+'%;top:4px;bottom:4px"></i></div>'+
             '<p class="say">'+esc(m.why)+'</p></div>'; });
       mv.innerHTML=t2+'</div><p class="lab">진한 막대 = 그 종목 · 옅은 막대 = 코스피</p>'; }
@@ -437,7 +443,7 @@ footer{font-size:13px;line-height:19px;color:var(--weak)}
     var rs=document.getElementById("rising"), R=B.rising||[], RM=B.rising_more||[];
     document.getElementById("rising-sec").hidden=!(R.length||RM.length); rs.innerHTML="";
     R.forEach(function(r){ var cur=r.mkt==="US"?"USD":"KRW";
-      var t4='<div class="cardx"><div class="hd2"><div><h3 style="margin:0">'+esc(r.name)+'</h3><span class="lab">'+esc(({KOSPI:"코스피",KOSDAQ:"코스닥",US:"미국"}[r.market]||r.market||"")+(r.mcap?" · 시총 "+r.mcap:""))+'</span></div><b class="num '+cls(r.chg)+'">'+pct(r.chg,1)+'</b></div>';
+      var t4='<div class="cardx"><div class="hd2"><div><h3 style="margin:0">'+tk(r)+'</h3><span class="lab">'+esc(({KOSPI:"코스피",KOSDAQ:"코스닥",US:"미국"}[r.market]||r.market||"")+(r.mcap?" · 시총 "+r.mcap:""))+'</span></div><b class="num '+cls(r.chg)+'">'+pct(r.chg,1)+'</b></div>';
       if(r.verdict) t4+='<p class="say"><b>'+esc(r.verdict)+'</b></p>';
       if((r.tiles||[]).length) t4+='<div class="tiles3">'+r.tiles.slice(0,3).map(function(x){var v=String(x.value==null?"":x.value);return '<div class="tl"><span class="lab">'+esc(x.label)+'</span>'+(v.length<=5?'<span class="v">'+esc(v)+'</span>':'<b>'+esc(v)+'</b>')+'</div>';}).join("")+'</div>';
       var lo=r.lo52, hi=r.hi52; if(lo==null&&r.now){} 
@@ -448,7 +454,7 @@ footer{font-size:13px;line-height:19px;color:var(--weak)}
       if(rk.length) t4+='<div class="box warn"><span class="t">조심할 점</span>'+rk.map(function(x){return '<p class="say">'+esc(x)+'</p>';}).join("")+'</div>';
       if(r.ahead) t4+='<p class="say"><span class="lab">앞으로 </span>'+esc(r.ahead)+'</p>';
       rs.appendChild(H(t4+'</div>')); });
-    if(RM.length){ rs.appendChild(H('<div class="cardx"><span class="lab" style="font-weight:600">더 본 후보</span><div class="more">'+RM.map(function(r){return '<div class="m"><b>'+esc(r.name)+'</b><b class="num '+cls(r.chg)+'">'+pct(r.chg,1)+'</b><p class="say">'+esc(r.line)+'</p></div>';}).join("")+'</div></div>')); }
+    if(RM.length){ rs.appendChild(H('<div class="cardx"><span class="lab" style="font-weight:600">더 본 후보</span><div class="more">'+RM.map(function(r){return '<div class="m"><b>'+tk(r)+'</b><b class="num '+cls(r.chg)+'">'+pct(r.chg,1)+'</b><p class="say">'+esc(r.line)+'</p></div>';}).join("")+'</div></div>')); }
 
     var tiles=document.getElementById("tiles"); tiles.innerHTML="";
     (B.markets||[]).forEach(function(m){
@@ -472,7 +478,7 @@ footer{font-size:13px;line-height:19px;color:var(--weak)}
       d.appendChild(hd);
       if(s.line) d.appendChild(el("p","ln",s.line));
       var ch=el("div","chips");
-      (s.stocks||[]).forEach(function(x){ var k=el("span","chip"); k.appendChild(document.createTextNode(x.name+" ")); k.appendChild(el("i",cls(x.chg_pct),(x.chg_pct>0?"+":"")+fmt(x.chg_pct,1)+"%")); ch.appendChild(k); });
+      (s.stocks||[]).forEach(function(x){ var k=el("a","chip tk"); k.href=tossUrl(x); k.appendChild(document.createTextNode(x.name+" ")); k.appendChild(el("i",cls(x.chg_pct),(x.chg_pct>0?"+":"")+fmt(x.chg_pct,1)+"%")); ch.appendChild(k); });
       d.appendChild(ch);
       if(s.pick) d.appendChild(el("p","pk",s.pick));
       secs.appendChild(d);
